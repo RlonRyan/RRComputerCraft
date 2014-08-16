@@ -16,7 +16,7 @@ end
 
 function validate(filepath)
   --print(string.match(filepath, "%a+"))
-  if(not fs.exists(string.match(filepath, "%a+"))) then
+  if(string.find(filepath, "/") and not fs.exists(string.match(filepath, "%a+"))) then
     fs.makeDir(string.match(filepath, "%a+"))
     return true
   elseif(not fs.exists(filepath)) then
@@ -42,6 +42,7 @@ end
 
 function downloadHttp(address, filepath)
   if(not validate(filepath)) then
+  	print("Could not download: " .. address .. " to: " .. filepath)
     return false
   else
     temp = http.get(address)
@@ -52,8 +53,9 @@ function downloadHttp(address, filepath)
       if(not temp) then
       	print("Cannot write file: " .. filepath)
       	return false
-  	end
+      end
       temp.write(content)
+      temp.close()
       return true
     else
       print("Unable to fetch file. Is the internet down?")
@@ -66,7 +68,6 @@ end
 function getManifest(address)
   temp = http.get(address .. "/manifest.mf")
   if(temp) then
-    manifest = textutils.unserialize(temp.readAll())
     manifest = textutils.unserialize(temp.readAll())
     temp.close()
     return manifest
@@ -100,4 +101,3 @@ elseif(args[1] == "http") then
 else
   print("Invalid mode.")
 end
-
