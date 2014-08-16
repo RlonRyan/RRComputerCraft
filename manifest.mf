@@ -1,13 +1,16 @@
 {
-	RRComputer.lua = {
+	RRComputer = {
+		file = "RRComputer.lua",
 		author = "RlonRyan",
 		program = "setup"
 	},
-	RRDownloader.lua = {
+	RRDownloader = {
+		file = "RRDownloader.lua"
 		author = "RlonRyan",
 		program = "download"
 	},
-	RRInstall.lua = {
+	RRInstall = {
+		file = "RRInstall.lua"
 		author = "RlonRyan",
 		program = "install"
 	},
