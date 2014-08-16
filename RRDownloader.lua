@@ -15,8 +15,8 @@ function checkVersion(filepath)
 end
 
 function validate(filepath)
-  if(not fs.exists(dir)) then
-    fs.makedir(string.match(filepath, ".*/"))
+  if(not fs.exists(string.match(filepath, "&a+"))) then
+    fs.makedir(string.match(filepath, "&a+"))
     return true
   elseif(not fs.exists(filepath)) then
     return true
