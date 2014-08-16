@@ -59,25 +59,31 @@ function downloadHttp(address, filepath)
   end
 end
 
-function downloadGit(user, repo, branch, file, filepath)
-  downloadHttp("https://raw.github.com/" .. user .. "/" .. repo .. "/" .. branch .. "/" .. file, filepath)
+function getManifest(address)
+  temp = http.get(address)
+  if(temp) then
+    local manifest = textutils.serialize(temp.readAll())
+    temp.close()
+    return manifest
+  else
+    print("Unable to fetch file. Is the internet down?")
+    print("Or have you not yet enabled http for computercraft?")
+    temp.close()
+    return false
+  end
 end
 
-function downloadGitHttp(address, file, filepath)
-  downloadHttp("https://raw.github.com/" .. user .. "/" .. repo .. "/" .. branch .. "/" .. file, filepath)
+function downloadGit(address, filepath)
+  for k,v in pairs(getManifest(address)) do
+    downloadGitHttp(address .. "/" .. k, v["program"])
+  end
 end
+
+
 
 if(args[1] == "git") then
-  local mode,user,repo,branch,file,filepath = args
-  downloadGit(user, repo, branch, file, filepath)
-elseif(args[1] == "githttp") then
-  downloadHttp(args[2], args[3])
+  downloadGit(args[2])
 elseif(args[1] == "http") then
   downloadHttp(args[2], args[3])
-elseif(args[1] == "githttpmanifest") then
-  for k,v in pairs(args[3]) do
-    downloadGitHttp(args[2], k, v["program"])
-  end
-else
   print("Invalid mode.")
 end
