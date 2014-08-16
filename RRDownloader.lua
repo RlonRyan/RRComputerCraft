@@ -15,8 +15,9 @@ function checkVersion(filepath)
 end
 
 function validate(filepath)
-  if(not fs.exists(string.match(filepath, "&a+"))) then
-    fs.makedir(string.match(filepath, "&a+"))
+  --print(string.match(filepath, "%a+"))
+  if(not fs.exists(string.match(filepath, "%a+"))) then
+    fs.makeDir(string.match(filepath, "%a+"))
     return true
   elseif(not fs.exists(filepath)) then
     return true
@@ -48,6 +49,10 @@ function downloadHttp(address, filepath)
       content = temp.readAll()
       temp.close()
       temp = fs.open(filepath, "w")
+      if(not temp) then
+      	print("Cannot write file: " .. filepath)
+      	return false
+  	end
       temp.write(content)
       return true
     else
@@ -64,7 +69,6 @@ function getManifest(address)
     manifest = textutils.unserialize(temp.readAll())
     manifest = textutils.unserialize(temp.readAll())
     temp.close()
-    print(manifest[RRComputer]["author"])
     return manifest
   else
     print("Unable to fetch file. Is the internet down?")
@@ -83,7 +87,7 @@ function downloadGit(user, repo, branch)
   address = "https://raw.githubusercontent.com/" .. user .. "/" .. repo .. "/" .. branch
   print(address)
   for k,v in pairs(getManifest(address)) do
-    downloadGitHttp(address .. "/" .. v["file"], v["program"])
+    downloadHttp(address .. "/" .. v["file"], v["program"])
   end
 end
 
@@ -96,3 +100,4 @@ elseif(args[1] == "http") then
 else
   print("Invalid mode.")
 end
+
