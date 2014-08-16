@@ -1,0 +1,32 @@
+-- Computer Program Downloader Agent
+-- By RlonRyan
+--
+-- PpKH1HS8
+--
+-- This program allows for the easy download of RR|Programs (for computercraft).
+
+args = {...}
+
+local overwrite = true
+
+function checkVersion(dir, file)
+  -- Todo
+  return false
+end
+
+function validate(dir, file)
+  if(not fs.exists(dir)) then
+    fs.makedir(dir)
+    return true
+  elseif(not fs.exists(dir .. "/" .. file))
+    return true
+  elseif(not checkversion)
+    fs.delete(dir .. "/" .. file)
+    return true
+  elseif(overwrite)
+    fs.delete(dir .. "/" .. file)
+    return true
+  else
+    return false
+  end
+end
