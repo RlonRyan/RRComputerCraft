@@ -79,8 +79,6 @@ function downloadGit(address, filepath)
   end
 end
 
-
-
 if(args[1] == "git") then
   downloadGit(args[2])
 elseif(args[1] == "http") then
