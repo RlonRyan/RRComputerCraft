@@ -18,12 +18,12 @@ function validate(filepath)
   if(not fs.exists(dir)) then
     fs.makedir(string.match(filepath, ".*/"))
     return true
-  elseif(not fs.exists(filepath))
+  elseif(not fs.exists(filepath)) then
     return true
-  elseif(not checkversion)
+  elseif(not checkversion) then
     fs.delete(filepath)
     return true
-  elseif(overwrite)
+  elseif(overwrite) then
     fs.delete(filepath)
     return true
   else
