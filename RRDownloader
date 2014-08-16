@@ -30,3 +30,11 @@ function validate(dir, file)
     return false
   end
 end
+
+function downloadPaste(paste, name, dir)
+  return shell.run("pastebin", get", paste, dir .. "/" .. name)
+end
+
+function downloadGit(user, repo, file, name, dir)
+  temp = http.get("https://raw.github.com/" .. user .. "/" .. repo .. "/" .. file)
+end
