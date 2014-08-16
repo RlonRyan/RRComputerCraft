@@ -1,16 +1,13 @@
 {
 	RRComputer.lua = {
-		file = "RRComputer",
 		author = "RlonRyan",
 		program = "setup"
 	},
 	RRDownloader.lua = {
-		file = "RRDownloader",
 		author = "RlonRyan",
 		program = "download"
 	},
 	RRInstall.lua = {
-		file = "RRInstall",
 		author = "RlonRyan",
 		program = "install"
 	},
