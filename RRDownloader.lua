@@ -35,7 +35,7 @@ function downloadPaste(paste, filepath)
   if(not validate(filepath)) then
     return false
   else
-    return shell.run("pastebin", get", paste, filepath)
+    return shell.run("pastebin", "get", paste, filepath)
   end
 end
 
