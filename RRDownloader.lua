@@ -40,7 +40,7 @@ function downloadPaste(paste, filepath)
 end
 
 function downloadHttp(address, filepath)
-  if(not validate(filepath))
+  if(not validate(filepath)) then
     return false
   else
     temp = http.get(address)
