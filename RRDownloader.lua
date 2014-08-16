@@ -53,17 +53,18 @@ function downloadHttp(address, filepath)
     else
       print("Unable to fetch file. Is the internet down?")
       print("Or have you not yet enabled http for computercraft?")
-      temp.close()
       return false
     end
   end
 end
 
 function getManifest(address)
-  temp = http.get(address)
+  temp = http.get(address .. "/manifest.mf")
   if(temp) then
-    local manifest = textutils.serialize(temp.readAll())
+    manifest = textutils.unserialize(temp.readAll())
+    manifest = textutils.unserialize(temp.readAll())
     temp.close()
+    print(manifest[RRComputer]["author"])
     return manifest
   else
     print("Unable to fetch file. Is the internet down?")
@@ -72,15 +73,26 @@ function getManifest(address)
   end
 end
 
-function downloadGit(address, filepath)
+function downloadGitAddress(address)
   for k,v in pairs(getManifest(address)) do
-    downloadGitHttp(address .. "/" .. k, v["program"])
+    downloadGitHttp(address .. "/" .. v["file"], v["program"])
   end
 end
 
-if(args[1] == "git") then
-  downloadGit(args[2])
+function downloadGit(user, repo, branch)
+  address = "https://raw.githubusercontent.com/" .. user .. "/" .. repo .. "/" .. branch
+  print(address)
+  for k,v in pairs(getManifest(address)) do
+    downloadGitHttp(address .. "/" .. v["file"], v["program"])
+  end
+end
+
+if(args[1] == "git" and table.getn(args) == 2) then
+  downloadGitAddress(args[2])
+elseif(args[1] == "git" and table.getn(args) >= 4) then
+  downloadGit(args[2], args[3], args[4])
 elseif(args[1] == "http") then
   downloadHttp(args[2], args[3])
+else
   print("Invalid mode.")
 end
