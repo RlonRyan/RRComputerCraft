@@ -68,7 +68,6 @@ function getManifest(address)
   else
     print("Unable to fetch file. Is the internet down?")
     print("Or have you not yet enabled http for computercraft?")
-    temp.close()
     return false
   end
 end
