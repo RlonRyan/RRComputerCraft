@@ -13,5 +13,15 @@
     file="RRInstall.lua",
     author="RlonRyan",
     program="install"
-    },
+  },
+  RRReactor={
+    file="RRReactor.lua",
+    author="RlonRyan",
+    program="reactor"
+  },
+  RRMine={
+    file="RRMine.lua",
+    author="RlonRyan",
+    program="mine"
+  },
 }
