@@ -40,10 +40,7 @@ term.setCursorPos(1,1)
 				if (io.read() == "y") then
 					fs.delete(name)
 				else
-					print("================")
-					print("File: " .. name .. " already exists!")
 					write("Rename? (y/n):")
-	
 					if io.read() == "y" then
 						print("Enter new name: ")
 						name = io.read()
@@ -59,7 +56,6 @@ term.setCursorPos(1,1)
 		
 		if(io.read() == "y") then
 			startup = fs.open("startup", "w")
-			startup.write("shell.run(\"RR|BedrockInstall\")")
 			startup.write("shell.run(\"" .. name .. "\")")
 			startup.close()
 		end
