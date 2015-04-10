@@ -1,25 +1,30 @@
 {
   RRComputer={
+    source="github",
     file="RRComputer.lua",
     author="RlonRyan",
     program="setup"
   },
   RRDownloader={
+    source="github",
     file="RRDownloader.lua",
     author="RlonRyan",
     program="download"
   },
   RRInstall={
+    source="github",
     file="RRInstall.lua",
     author="RlonRyan",
     program="install"
   },
   RRReactor={
+    source="github",
     file="RRReactor.lua",
     author="RlonRyan",
     program="reactor"
   },
   RRMine={
+    source="github",
     file="RRMine.lua",
     author="RlonRyan",
     program="mine"
