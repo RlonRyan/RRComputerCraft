@@ -29,7 +29,7 @@ end
 
 if(validate(args[1], args[2] == "a")) then
     
-  temp = fs.open(filepath, args[1])
+  temp = fs.open(args[1], args[2])
     
   if(not temp) then
     print("Cannot write file: " .. filepath)
