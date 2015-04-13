@@ -23,11 +23,11 @@ end
 
 line = ""
 
-for i = 2,table.getn(args) do
-  line = line .. line
+for i = 3,table.getn(args) do
+  line = line .. args[i]
 end
 
-if(validate(args[2], args[1] == "a")) then
+if(validate(args[1], args[2] == "a")) then
     
   temp = fs.open(filepath, args[1])
     
