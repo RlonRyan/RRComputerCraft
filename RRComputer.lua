@@ -147,6 +147,7 @@ print("==================")
 run = ""
 for selection in string.gmatch(io.read(), "[^%s]+") do
 	selection = tonumber(selection)
+	print(path .. "/RRDownloader" .. " http " .. "https://raw.githubusercontent.com/RlonRyan/RRComputerCraft/master/" .. programs[menu[selection]]["file"] .. " " .. programs[menu[selection]]["program"])
 	shell.run(path .. "/RRDownloader" .. " http " .. "https://raw.githubusercontent.com/RlonRyan/RRComputerCraft/master/" .. programs[menu[selection]]["file"] .. " " .. programs[menu[selection]]["program"])
 end
 print("==================")
