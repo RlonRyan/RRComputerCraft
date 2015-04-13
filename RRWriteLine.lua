@@ -36,7 +36,7 @@ if(validate(args[1], args[2] == "a")) then
     return false
   end
     
-  temp.write()
+  temp.write(line)
   temp.close()
   return true
     
