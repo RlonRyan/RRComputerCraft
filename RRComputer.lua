@@ -1,23 +1,21 @@
 -- Computer Program Agent
 -- By RlonRyan
 --
--- PpKH1HS8
+-- UgW5W9FM
 --
--- This program allows for the easy setup of RR|Programs (for computercraft).
+-- This program allows for the easy setup of RR|Programs (for ComputerCraft).
 -- It will also attempt to update RR|Programs when run.
--- It uses the RR|Programs list (jpvAAJS5) found on pastebin to find programs.
--- It also uses the RR|Install program (94rbEkV7) to download and install those programs.
+-- It uses the RR|Programs list found on github to find programs.
 --
 -- Dependencies:
--- Bedrock GUI
 -- (All dependencies will auto-download and install)
 --
 -- Installation instructions:
--- Use: pastebin get PpKH1HS8 RR|Computer
+-- Use: pastebin get UgW5W9FM RR|Computer
 --
 -- Install disk instructions:
 -- Save the line:
--- shell.run("pastebin get PpKH1HS8 RR|Computer")
+-- shell.run("pastebin get UgW5W9FM RR|Computer")
 -- To disk/autorun
 --
 -- Run instructions:
@@ -25,40 +23,109 @@
 
 local path = shell.getRunningProgram() .. "Resources"
 
+local overwrite = true
+
+function checkVersion(filepath)
+  -- Todo
+  return false
+end
+
+function validate(filepath)
+  --print(string.match(filepath, "%a+"))
+  if(string.find(filepath, "/") and not fs.exists(string.match(filepath, "%a+"))) then
+    fs.makeDir(string.match(filepath, "%a+"))
+    return true
+  elseif(not fs.exists(filepath)) then
+    return true
+  elseif(not checkversion) then
+    fs.delete(filepath)
+    return true
+  elseif(overwrite) then
+    fs.delete(filepath)
+    return true
+  else
+    return false
+  end
+end
+
+function downloadPaste(paste, filepath)
+  if(not validate(filepath)) then
+    return false
+  else
+    return shell.run("pastebin", "get", paste, filepath)
+  end
+end
+
+function downloadHttp(address, filepath)
+  if(not validate(filepath)) then
+  	print("Could not download: " .. address .. " to: " .. filepath)
+    return false
+  else
+    print("Installing: " .. address .. " to: " .. filepath)
+    temp = http.get(address)
+    if(temp) then
+      content = temp.readAll()
+      temp.close()
+      temp = fs.open(filepath, "w")
+      if(not temp) then
+      	print("Cannot write file: " .. filepath)
+      	return false
+      end
+      temp.write(content)
+      temp.close()
+      return true
+    else
+      print("Unable to fetch file. Is the internet down?")
+      print("Or have you not yet enabled http for computercraft?")
+      return false
+    end
+  end
+end
+
+function getManifest(address)
+  temp = http.get(address .. "/manifest.mf")
+  if(temp) then
+    manifest = textutils.unserialize(temp.readAll())
+    temp.close()
+    return manifest
+  else
+    print("Unable to fetch file. Is the internet down?")
+    print("Or have you not yet enabled http for computercraft?")
+    return false
+  end
+end
+
 term.clear()
 term.setCursorPos(1,1)
 
 print("RR|Program Setup")
 print("================")
+
 print("Validating Directories")
 fs.delete(path)
 fs.makeDir(path)
-fs.makeDir(path .. "/Views")
+
 print("================")
+
 print("Updating programs list.")
-shell.run("pastebin get jpvAAJS5 " .. path .. "/RR|Programs")
-list = fs.open(path .. "/RR|Programs", "r")
-programs = textutils.unserialize(list.readAll())
-list.close()
+programs = getManifest("https://raw.githubusercontent.com/RlonRyan/RRComputerCraft/master")
+
 print("================")
+
 print("Updating installation agent.")
-shell.run("pastebin get 94rbEkV7 " .. path .. "/RR|Install")
+downloadHttp("https://raw.githubusercontent.com/RlonRyan/RRComputerCraft/master/RRDownloader.lua", path .. "/RRDownloader")
+
 print("================")
+
 print("Obtaining Dependencies.")
-fs.delete("RR|BedrockInstall")
-shell.run("pastebin get jBwRtzbG RR|BedrockInstall")
-shell.run("RR|BedrockInstall")
--- Fix filepath
-Bedrock.ProgramPath = path
--- Obtain view(s)
-shell.run("pastebin get F8WKXGGe " .. path .. "/Views/main.view")
+
 print("================")
 print("Initialization Completed.")
 print("================")
 
---print("")
---write("Press any key to continue.")
---io.read()
+print("")
+write("Press any key to continue.")
+io.read()
 
 term.clear()
 term.setCursorPos(1,1)
@@ -80,9 +147,6 @@ print("==================")
 run = ""
 for selection in string.gmatch(io.read(), "[^%s]+") do
 	selection = tonumber(selection)
-	run = run .. " " .. programs[menu[selection]]["name"] .. " " .. programs[menu[selection]]["address"]
+	shell.run(path .. "/RRDownloader" .. " http " .. "https://raw.githubusercontent.com/RlonRyan/RRComputerCraft/master/" .. programs[menu[selection]]["file"] .. " " .. programs[menu[selection]]["program"])
 end
 print("==================")
-if(run ~= nul) then
-	shell.run(path .. "/RR|Install" .. run)
-end
