@@ -11,4 +11,10 @@
     author="RlonRyan",
     program="mine"
   },
+  RRWriteLine={
+    source="github",
+    file="RRWriteLine.lua",
+    author="RlonRyan",
+    program="wl"
+  },
 }
