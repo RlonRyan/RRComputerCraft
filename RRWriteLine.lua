@@ -24,7 +24,7 @@ end
 line = ""
 
 for i = 3,table.getn(args) do
-  line = line .. args[i]
+  line = line .. " " .. args[i]
 end
 
 if(validate(args[1], args[2] == "a")) then
