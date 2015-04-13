@@ -25,6 +25,14 @@ local path = shell.getRunningProgram() .. "Resources"
 
 local overwrite = true
 
+function reset()
+    term.clear()
+    term.setCursorPos(1,1)
+
+    print("RR|Program Setup")
+    print("================")
+end
+
 function checkVersion(filepath)
   -- Todo
   return false
@@ -95,40 +103,35 @@ function getManifest(address)
   end
 end
 
-term.clear()
-term.setCursorPos(1,1)
-
-print("RR|Program Setup")
-print("================")
+reset()
 
 print("Validating Directories")
 fs.delete(path)
 fs.makeDir(path)
 
-print("================")
+reset()
 
 print("Updating programs list.")
 programs = getManifest("https://raw.githubusercontent.com/RlonRyan/RRComputerCraft/master")
 
-print("================")
+reset()
 
 print("Updating installation agent.")
 downloadHttp("https://raw.githubusercontent.com/RlonRyan/RRComputerCraft/master/RRDownloader.lua", path .. "/RRDownloader")
 
-print("================")
+reset()
 
 print("Obtaining Dependencies.")
 
-print("================")
+reset()
+
 print("Initialization Completed.")
 print("================")
-
 print("")
 write("Press any key to continue.")
 io.read()
 
-term.clear()
-term.setCursorPos(1,1)
+reset()
 
 print("RR|Program Setup")
 print("==================")
@@ -144,10 +147,12 @@ end
 print("==================")
 print("Select Programs: ")
 print("==================")
-run = ""
-for selection in string.gmatch(io.read(), "[^%s]+") do
+
+selections = string.gmatch(io.read(), "[^%s]+")
+
+print("==================")
+
+for selection in selections do
 	selection = tonumber(selection)
-	print(path .. "/RRDownloader" .. " http " .. "https://raw.githubusercontent.com/RlonRyan/RRComputerCraft/master/" .. programs[menu[selection]]["file"] .. " " .. programs[menu[selection]]["program"])
 	shell.run(path .. "/RRDownloader" .. " http " .. "https://raw.githubusercontent.com/RlonRyan/RRComputerCraft/master/" .. programs[menu[selection]]["file"] .. " " .. programs[menu[selection]]["program"])
 end
-print("==================")
