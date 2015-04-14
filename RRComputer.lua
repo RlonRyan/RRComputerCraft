@@ -29,12 +29,14 @@ function output(text, color)
   color = color or colors.white
   term.setTextColor(color)
   write(text)
+  term.setTextColor(colors.white)
 end
 
 function outputln(text, color) -- Dirty Funtion.
   color = color or colors.white
   term.setTextColor(color)
   print(text)
+  term.setTextColor(colors.white)
 end
 
 function bar()
@@ -141,16 +143,18 @@ programs = getManifest("https://raw.githubusercontent.com/RlonRyan/RRComputerCra
 
 reset()
 
-print("Updating installation agent.")
+outputln("Updating installation agent.")
+br()
 downloadHttp("https://raw.githubusercontent.com/RlonRyan/RRComputerCraft/master/RRDownloader.lua", path .. "/RRDownloader")
 
 reset()
 
-print("Obtaining Dependencies.")
+outputln("Obtaining Dependencies.")
 
 reset()
 
-print("Initialization Completed.")
+outputln("Initialization Completed.")
+br()
 bar()
 print("")
 output("Press any key to continue.")
@@ -158,17 +162,18 @@ io.read()
 
 reset()
 
-print("Available Programs")
+outputln("Available Programs")
 bar()
 menu = {}
 i = 1
 for k,v in pairs(programs) do
 	menu[i] = k
-	print(i .. ".) " .. k .. " by " .. v["author"])
+	outputln(i .. ".) " .. k .. " by " .. v["author"])
 	i = i + 1
 end
+br()
 bar()
-print("Select Programs: ")
+outputln("Select Programs: ")
 bar()
 
 selections = string.gmatch(io.read(), "[^%s]+")
