@@ -25,17 +25,43 @@ local path = shell.getRunningProgram() .. "Resources"
 
 local overwrite = true
 
+function output(text, color)
+  color = color or colors.white
+  term.setTextColor(color)
+  write(text)
+end
+
+function outputln(text, color) -- Dirty Funtion.
+  color = color or colors.white
+  term.setTextColor(color)
+  print(text)
+end
+
+function bar()
+	outputln("================", colors.lightGray)
+end
+
+function br()
+	print()
+end
+
+function err(...)
+  -- TODO: Add Error formatter.
+  br()
+  bar()
+  for line in arg do
+    outputln(text, colors.red)
+  end
+  bar()
+  br()
+end
+
 function reset()
     term.clear()
     term.setCursorPos(1,1)
-
-    print("RR|Program Setup")
-    print("================")
-end
-
-function checkVersion(filepath)
-  -- Todo
-  return false
+    outputln("RR|Program Setup", colors.green)
+    bar()
+    br()
 end
 
 function validate(filepath)
@@ -52,6 +78,7 @@ function validate(filepath)
     fs.delete(filepath)
     return true
   else
+  	err("Bad filepath: " .. filepath)
     return false
   end
 end
@@ -66,7 +93,7 @@ end
 
 function downloadHttp(address, filepath)
   if(not validate(filepath)) then
-  	print("Could not download: " .. address .. " to: " .. filepath)
+  	err("Could not download: " .. address .. " to: " .. filepath)
     return false
   else
     print("Installing: " .. address .. " to: " .. filepath)
@@ -76,15 +103,14 @@ function downloadHttp(address, filepath)
       temp.close()
       temp = fs.open(filepath, "w")
       if(not temp) then
-      	print("Cannot write file: " .. filepath)
+      	err("Cannot write file: " .. filepath)
       	return false
       end
       temp.write(content)
       temp.close()
       return true
     else
-      print("Unable to fetch file. Is the internet down?")
-      print("Or have you not yet enabled http for computercraft?")
+      err("Unable to fetch file. Is the internet down?", "Or have you not yet enabled http for computercraft?")
       return false
     end
   end
@@ -97,15 +123,14 @@ function getManifest(address)
     temp.close()
     return manifest
   else
-    print("Unable to fetch file. Is the internet down?")
-    print("Or have you not yet enabled http for computercraft?")
+    err("Unable to fetch file. Is the internet down?", "Or have you not yet enabled http for computercraft?")
     return false
   end
 end
 
 reset()
 
-print("Validating Directories")
+print("Validating Directories.")
 fs.delete(path)
 fs.makeDir(path)
 
@@ -126,17 +151,15 @@ print("Obtaining Dependencies.")
 reset()
 
 print("Initialization Completed.")
-print("================")
+bar()
 print("")
-write("Press any key to continue.")
+output("Press any key to continue.")
 io.read()
 
 reset()
 
-print("RR|Program Setup")
-print("==================")
 print("Available Programs")
-print("==================")
+bar()
 menu = {}
 i = 1
 for k,v in pairs(programs) do
@@ -144,15 +167,18 @@ for k,v in pairs(programs) do
 	print(i .. ".) " .. k .. " by " .. v["author"])
 	i = i + 1
 end
-print("==================")
+bar()
 print("Select Programs: ")
-print("==================")
+bar()
 
 selections = string.gmatch(io.read(), "[^%s]+")
 
-print("==================")
+bar()
 
 for selection in selections do
 	selection = tonumber(selection)
 	shell.run(path .. "/RRDownloader" .. " http " .. "https://raw.githubusercontent.com/RlonRyan/RRComputerCraft/master/" .. programs[menu[selection]]["file"] .. " " .. programs[menu[selection]]["program"])
 end
+
+term.clear()
+term.setCursorPos(1,1)
