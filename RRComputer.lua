@@ -98,7 +98,9 @@ function downloadHttp(address, filepath)
   	err("Could not download: " .. address .. " to: " .. filepath)
     return false
   else
-    print("Installing: " .. address .. " to: " .. filepath)
+    outputln("Installing:", colors.gray)
+    outputln("\tFrom: " .. address, colors.gray)
+    outputln("\tTo: " .. filepath, colors.gray)
     temp = http.get(address)
     if(temp) then
       content = temp.readAll()
@@ -168,7 +170,8 @@ menu = {}
 i = 1
 for k,v in pairs(programs) do
 	menu[i] = k
-	outputln(i .. ".) " .. k .. " by " .. v["author"])
+	output(i .. ".) ", colors.yellow)
+	outputln(k .. " by " .. v["author"])
 	i = i + 1
 end
 br()
