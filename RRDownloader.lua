@@ -44,6 +44,9 @@ function err(...)
   end
   bar()
   br()
+  outputln("")
+  output("Press any key to continue.")
+  io.read()
 end
 
 function reset()
