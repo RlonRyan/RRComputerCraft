@@ -34,68 +34,33 @@ end
 
 function fuel()
 
-	while turtle.getFuelLevel()  == 0 do
+	if turtle then
 		
-		turtle.select(1)
-		turtle.refuel(1)
+		while turtle.getFuelLevel()  == 0 do
 		
-		if turtle.getFuelLevel() == 0 then
+			turtle.select(1)
+			turtle.refuel(1)
 			
-			term.write("Ran out of fuel! Refuel and press any key to continue!")
-			io.read()
+			if turtle.getFuelLevel() == 0 then
 			
-		end
-		
-	end
-
-end
-
-function row(l)
-
-	for i=0,l,1 do
-		
-		fuel()
-		
-		while turtle.detect() do
-			
-			turtle.dig()
-			
-		end
-		
-		move()
-		
-		if not turtle.detectDown() then
-			
-			turtle.select(3)
-			turtle.placeDown()
-			
-		end
-		
-		if i % torch == 1 then
-			
-			turtle.turnLeft()
-			turtle.turnLeft()
-			turtle.select(2)
-			turtle.place()
-			turtle.turnRight()
-			turtle.turnRight()
-			
-		end
-		
-		while turtle.detectUp() do
-			
-			turtle.digUp()
+				term.write("Ran out of fuel! Refuel and press any key to continue!")
+				io.read()
+			end
 			
 		end
 		
 	end
+
 end
 
 function turn()
 
 	if mode == 1 then
 		
-		turtle.turnRight()
+		if turtle then
+			turtle.turnRight()
+		end
+		
 		dir = dir + 1
 		
 		if dir > 3 then
@@ -104,7 +69,10 @@ function turn()
 		
 	else
 		
-		turtle.turnLeft()
+		if turtle then
+			turtle.turnLeft()
+		end
+		
 		dir = dir - 1
 		
 		if dir < 0 then
@@ -119,7 +87,10 @@ function turnback()
 
 	if mode == 1 then
 		
-		turtle.turnLeft()
+		if turtle then
+			turtle.turnLeft()
+		end
+		
 		dir = dir - 1
 		
 		if dir < 0 then
@@ -128,7 +99,10 @@ function turnback()
 		
 	else
 		
-		turtle.turnRight()
+		if turtle then
+			turtle.turnRight()
+		end
+		
 		dir = dir + 1
 		
 		if dir > 3 then
@@ -149,7 +123,7 @@ end
 
 function move()
 	
-	if turtle.forward() then
+	if (not turtle) or (turtle.forward()) then
 		
 		if dir == 0 then
 			y = y + 1
@@ -161,12 +135,21 @@ function move()
 			x = x - 1
 		end
 		
+		if (not turtle) then
+			print("X: " .. x .. " Z: " .. y)
+			io.read()
+		end
+		
 	end
 	
 end
 
 function depositinventory()
 
+	if not turtle then
+		return
+	end
+	
 	for i=4,9,1 do
 		
 		turtle.select(i)
@@ -174,6 +157,53 @@ function depositinventory()
 		
 	end		
 
+end
+
+function row(l)
+
+	for i=0,l,1 do
+		
+		fuel()
+		
+		while turtle and turtle.detect() do
+			
+			turtle.dig()
+			
+		end
+		
+		move()
+		
+		if turtle and not turtle.detectDown() then
+			
+			turtle.select(3)
+			turtle.placeDown()
+			
+		end
+		
+		if i % torch == 1 then
+			
+			turn()
+			turn()
+			
+			if turtle then
+				turtle.select(2)
+				turtle.place()
+			else
+				print("torch")
+			end
+			
+			turnBack()
+			turnBack()
+			
+		end
+		
+		while turtle and turtle.detectUp() do
+			
+			turtle.digUp()
+			
+		end
+		
+	end
 end
 
 function main()
