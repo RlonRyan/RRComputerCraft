@@ -1,24 +1,32 @@
 {
   RRReactor={
     source="github",
+    repo="RRComputerCraft",
+    branch="master",
     file="RRReactor.lua",
     author="RlonRyan",
     program="reactor"
   },
   RRMine={
     source="github",
+    repo="RRComputerCraft",
+    branch="master",
     file="RRMine.lua",
     author="RlonRyan",
     program="mine"
   },
   RRWriteLine={
     source="github",
+    repo="RRComputerCraft",
+    branch="master",
     file="RRWriteLine.lua",
     author="RlonRyan",
     program="wl"
   },
   LyqydOS={
     source="github",
+    repo="LyqydOS",
+    branch="master",
     file="installer",
     author="Lyqyd",
     program="OSInstaller"
