@@ -44,9 +44,6 @@ function err(...)
   end
   bar()
   br()
-  outputln("")
-  output("Press any key to continue.")
-  io.read()
 end
 
 function reset()
@@ -196,7 +193,7 @@ outputln("\tFrom: " .. args[2])
 outputln("\tVia: " .. args[1])
 bar()
 
-if(args[1] == "paste" and table.getn(args) == 3) then
+if((args[1] == "paste" or args[1] == "paste") and table.getn(args) == 3) then
 	downloadPaste(args[2], args[3])
 elseif(args[1] == "http" and table.getn(args) == 3) then
 	downloadHttp(args[2], args[3])
