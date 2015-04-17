@@ -323,6 +323,9 @@ function main()
 		
 		while (not (x == 0)) do
 			
+			while turtle and turtle.detect() do
+				turtle.dig()
+			end
 			move()
 			
 		end
@@ -348,6 +351,9 @@ function main()
 		
 		while (not (x == pos)) do
 			
+			while turtle and turtle.detect() do
+				turtle.dig()
+			end
 			move()
 			
 		end
