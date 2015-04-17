@@ -210,8 +210,6 @@ outputln("\tFrom: " .. args[2])
 outputln("\tVia: " .. args[1])
 bar()
 outputln("Done.", colors.lime)
-
-br()
 bar()
 outputln("")
 output("Press any key to continue.")
