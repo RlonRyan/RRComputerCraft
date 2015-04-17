@@ -51,7 +51,7 @@ function err(...)
   -- TODO: Add Error formatter.
   br()
   bar()
-  for line in arg do
+  for line in args do
     outputln(text, colors.red)
   end
   bar()
@@ -158,7 +158,7 @@ reset()
 outputln("Initialization Completed.")
 br()
 bar()
-print("")
+br()
 output("Press any key to continue.")
 io.read()
 
