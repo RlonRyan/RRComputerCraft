@@ -1,0 +1,7 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Files to worry about
+*.lua  text eol=crlf
+*.mf   text eol=crlf
+
