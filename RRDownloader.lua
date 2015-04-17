@@ -200,4 +200,15 @@ else
 end
 
 reset()
+outputln("Downloading Program: " .. args[table.getn(args)])
+bar()
+output("\tFrom: " .. args[2])
+output("\tVia: " .. args[1])
+bar()
 outputln("Done.", colors.lime)
+
+br()
+bar()
+print("")
+output("Press any key to continue.")
+io.read()
