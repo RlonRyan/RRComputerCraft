@@ -185,11 +185,12 @@ for selection in string.gmatch((io.read()), "[^%s]+") do
 	
 	selection = tonumber(selection)
 	
-	if programs[menu[selection]]["source"] == "paste" then
-		shell.run(path .. "/RRDownloader", "paste", programs[menu[selection]]["paste"], programs[menu[selection]]["program"])
-	elseif programs[menu[selection]]["source"] == "http" then
+	src = string.lower(programs[menu[selection]]["source"])
+	if (src == "pastebin" or src == "paste") then
+		shell.run(path .. "/RRDownloader", "pastebin", programs[menu[selection]]["paste"], programs[menu[selection]]["program"])
+	elseif (src == "http") then
 		shell.run(path .. "/RRDownloader", "http", programs[menu[selection]]["address"], programs[menu[selection]]["program"])
-	elseif programs[menu[selection]]["source"] == "github" then
+	elseif (src == "github" or src == "git") then
 		shell.run(path .. "/RRDownloader", "github", programs[menu[selection]]["author"], programs[menu[selection]]["repo"], programs[menu[selection]]["branch"], programs[menu[selection]]["file"], programs[menu[selection]]["program"])
 	end
 	
