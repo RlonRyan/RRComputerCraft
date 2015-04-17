@@ -193,10 +193,10 @@ if(args[1] == "paste" and table.getn(args) == 3) then
 	downloadPaste(args[2], args[3])
 elseif(args[1] == "http" and table.getn(args) == 3) then
 	downloadHttp(args[2], args[3])
-elseif(args[1] == "git" and table.getn(args) >= 6) then
+elseif((args[1] == "git" or args[1] == "git") and table.getn(args) >= 6) then
 	downloadGit(args[2], args[3], args[4], args[5], args[6])
 else
-	print("Invalid mode.")
+	err("Invalid mode.")
 end
 
 reset()
@@ -209,6 +209,6 @@ outputln("Done.", colors.lime)
 
 br()
 bar()
-print("")
+outputln("")
 output("Press any key to continue.")
 io.read()
