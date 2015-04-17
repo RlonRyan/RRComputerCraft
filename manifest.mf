@@ -9,10 +9,10 @@
   },
   RR_AutoReactor = {
     source = "pastebin",
-		paste = "N7ByezuW",
-		author = "RlonRyan",
-		name = "startup"
-	},
+    paste = "N7ByezuW",
+    author = "RlonRyan",
+    name = "startup"
+  },
   RRMine={
     source="github",
     repo="RRComputerCraft",
@@ -36,7 +36,7 @@
     file="installer",
     author="Lyqyd",
     program="OSInstaller"
-  }
+  },
   Lyqyd_GPS = {
     source = "pastebin",
 		paste = "wQaGzaK7",
