@@ -75,6 +75,12 @@ function init()
 	output("Enter Torch Interval: ")
 	torch = io.read()
 	torch = tonumber(torch)
+	
+	reset()
+	output("Name? (y/n): ")
+	if (io.read() == y) then
+		shell.run(label, "set", "RR|MiningTurtle")
+	end
 
 end
 
@@ -329,7 +335,11 @@ function main()
 		turn()
 		
 		if (i == rows) then
+			
+			reset()
+			outputln("Done.", colors.lime)
 			return
+			
 		end
 		
 		reset()
