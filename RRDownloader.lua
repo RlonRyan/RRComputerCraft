@@ -95,13 +95,17 @@ function getManifest(address)
 end
 
 function downloadPaste(paste, filepath)
-	
+
+  outputln("Downloading Paste... ")
+  
   if(not validate(filepath)) then
   	err("Invalid Filepath: " .. filepath)
     return false
   else
     return shell.run("pastebin", "get", paste, filepath)
   end
+  
+  outputln(" Complete!")
   
 end
 
@@ -185,8 +189,8 @@ end
 
 outputln("Downloading Program: " .. args[table.getn(args)])
 bar()
-output("\tFrom: " .. args[2])
-output("\tVia: " .. args[1])
+outputln("\tFrom: " .. args[2])
+outputln("\tVia: " .. args[1])
 bar()
 
 if(args[1] == "paste" and table.getn(args) == 3) then
@@ -202,8 +206,8 @@ end
 reset()
 outputln("Downloading Program: " .. args[table.getn(args)])
 bar()
-output("\tFrom: " .. args[2])
-output("\tVia: " .. args[1])
+outputln("\tFrom: " .. args[2])
+outputln("\tVia: " .. args[1])
 bar()
 outputln("Done.", colors.lime)
 
