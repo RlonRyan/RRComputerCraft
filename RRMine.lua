@@ -330,9 +330,9 @@ function main()
 		bar()
 		outputln("Home.")
 		
-		turn()
+		turnback()
 		depositinventory()
-		turn()
+		turnback()
 		
 		if (i == rows) then
 			
