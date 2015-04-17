@@ -7,6 +7,12 @@
     author="RlonRyan",
     program="reactor"
   },
+  RR_AutoReactor = {
+    source = "pastebin",
+		paste = "N7ByezuW",
+		author = "RlonRyan",
+		name = "startup"
+	},
   RRMine={
     source="github",
     repo="RRComputerCraft",
@@ -31,4 +37,16 @@
     author="Lyqyd",
     program="OSInstaller"
   }
+  Lyqyd_GPS = {
+    source = "pastebin",
+		paste = "wQaGzaK7",
+		author = "Lyqyd",
+		program = "gps"
+	},
+	Oeed_Doorlock = {
+	  source = "pastebin",
+		paste = "4QeAEiTM",
+		author = "Oeed",
+		program = "doorlock"
+	},
 }
