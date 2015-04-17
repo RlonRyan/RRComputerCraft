@@ -1,17 +1,69 @@
--- Computer Program Downloader Agent
+-- Computer Program Agent
 -- By RlonRyan
 --
--- PpKH1HS8
+-- UgW5W9FM
 --
--- This program allows for the easy download of RR|Programs (for computercraft).
+-- This program allows for the easy setup of RR|Programs (for ComputerCraft).
+-- It will also attempt to update RR|Programs when run.
+-- It uses the RR|Programs list found on github to find programs.
+--
+-- Dependencies:
+-- (All dependencies will auto-download and install)
+--
+-- Installation instructions:
+-- Use: pastebin get UgW5W9FM RR|Computer
+--
+-- Install disk instructions:
+-- Save the line:
+-- shell.run("pastebin get UgW5W9FM RR|Computer")
+-- To disk/autorun
+--
+-- Run instructions:
+-- Use: RR|Computer
 
-args = {...}
+local path = shell.getRunningProgram() .. "Resources"
 
 local overwrite = true
 
-function checkVersion(filepath)
-  -- Todo
-  return false
+function output(text, color)
+  color = color or colors.white
+  term.setTextColor(color)
+  write(text)
+  term.setTextColor(colors.white)
+end
+
+function outputln(text, color) -- Dirty Funtion.
+  color = color or colors.white
+  term.setTextColor(color)
+  print(text)
+  term.setTextColor(colors.white)
+end
+
+function bar()
+	outputln("================", colors.lightGray)
+end
+
+function br()
+	print()
+end
+
+function err(...)
+  -- TODO: Add Error formatter.
+  br()
+  bar()
+  for line in arg do
+    outputln(text, colors.red)
+  end
+  bar()
+  br()
+end
+
+function reset()
+    term.clear()
+    term.setCursorPos(1,1)
+    outputln("RR|Program Setup", colors.green)
+    bar()
+    br()
 end
 
 function validate(filepath)
@@ -28,6 +80,7 @@ function validate(filepath)
     fs.delete(filepath)
     return true
   else
+  	err("Bad filepath: " .. filepath)
     return false
   end
 end
@@ -42,24 +95,26 @@ end
 
 function downloadHttp(address, filepath)
   if(not validate(filepath)) then
-  	print("Could not download: " .. address .. " to: " .. filepath)
+  	err("Could not download: " .. address .. " to: " .. filepath)
     return false
   else
+    outputln("Installing:", colors.gray)
+    outputln("\tFrom: " .. address, colors.gray)
+    outputln("\tTo: " .. filepath, colors.gray)
     temp = http.get(address)
     if(temp) then
       content = temp.readAll()
       temp.close()
       temp = fs.open(filepath, "w")
       if(not temp) then
-      	print("Cannot write file: " .. filepath)
+      	err("Cannot write file: " .. filepath)
       	return false
       end
       temp.write(content)
       temp.close()
       return true
     else
-      print("Unable to fetch file. Is the internet down?")
-      print("Or have you not yet enabled http for computercraft?")
+      err("Unable to fetch file. Is the internet down?", "Or have you not yet enabled http for computercraft?")
       return false
     end
   end
@@ -72,32 +127,74 @@ function getManifest(address)
     temp.close()
     return manifest
   else
-    print("Unable to fetch file. Is the internet down?")
-    print("Or have you not yet enabled http for computercraft?")
+    err("Unable to fetch file. Is the internet down?", "Or have you not yet enabled http for computercraft?")
     return false
   end
 end
 
-function downloadGitAddress(address)
-  for k,v in pairs(getManifest(address)) do
-    downloadGitHttp(address .. "/" .. v["file"], v["program"])
-  end
+reset()
+
+print("Validating Directories.")
+fs.delete(path)
+fs.makeDir(path)
+
+reset()
+
+print("Updating programs list.")
+programs = getManifest("https://raw.githubusercontent.com/RlonRyan/RRComputerCraft/master")
+
+reset()
+
+outputln("Updating installation agent.")
+br()
+downloadHttp("https://raw.githubusercontent.com/RlonRyan/RRComputerCraft/master/RRDownloader.lua", path .. "/RRDownloader")
+
+reset()
+
+outputln("Obtaining Dependencies.")
+
+reset()
+
+outputln("Initialization Completed.")
+br()
+bar()
+print("")
+output("Press any key to continue.")
+io.read()
+
+reset()
+
+outputln("Available Programs")
+bar()
+menu = {}
+i = 1
+for k,v in pairs(programs) do
+	menu[i] = k
+	output(i .. ".) ", colors.yellow)
+	outputln(k .. " by " .. v["author"])
+	i = i + 1
+end
+br()
+bar()
+outputln("Select Programs: ")
+bar()
+
+selections = string.gmatch(io.read(), "[^%s]+")
+
+bar()
+
+for selection in selections do
+	
+	selection = tonumber(selection)
+	
+	if programs[menu[selection]]["source"] == "paste" then
+		shell.run(path .. "/RRDownloader", "paste", programs[menu[selection]]["paste"], programs[menu[selection]]["program"])
+	if programs[menu[selection]]["source"] == "http" then
+		shell.run(path .. "/RRDownloader", "http", programs[menu[selection]]["adress"], programs[menu[selection]]["program"])
+	elseif programs[menu[selection]]["source"] == "git" then
+		shell.run(path .. "/RRDownloader", "git", programs[menu[selection]]["author"], programs[menu[selection]]["repo"], programs[menu[selection]]["branch"], programs[menu[selection]]["file"], programs[menu[selection]]["program"])
+	end
 end
 
-function downloadGit(user, repo, branch)
-  address = "https://raw.githubusercontent.com/" .. user .. "/" .. repo .. "/" .. branch
-  print(address)
-  for k,v in pairs(getManifest(address)) do
-    downloadHttp(address .. "/" .. v["file"], v["program"])
-  end
-end
-
-if(args[1] == "git" and table.getn(args) == 2) then
-  downloadGitAddress(args[2])
-elseif(args[1] == "git" and table.getn(args) >= 4) then
-  downloadGit(args[2], args[3], args[4])
-elseif(args[1] == "http") then
-  downloadHttp(args[2], args[3])
-else
-  print("Invalid mode.")
-end
+term.clear()
+term.setCursorPos(1,1)
