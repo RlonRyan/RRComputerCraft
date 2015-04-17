@@ -17,4 +17,10 @@
     author="RlonRyan",
     program="wl"
   },
+  LyqydOS={
+    source="github",
+    file="installer",
+    author="Lyqyd",
+    program="OSInstaller"
+  }
 }
