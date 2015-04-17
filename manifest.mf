@@ -39,14 +39,14 @@
   },
   Lyqyd_GPS = {
     source = "pastebin",
-		paste = "wQaGzaK7",
-		author = "Lyqyd",
-		program = "gps"
-	},
-	Oeed_Doorlock = {
-	  source = "pastebin",
-		paste = "4QeAEiTM",
-		author = "Oeed",
-		program = "doorlock"
-	},
+    paste = "wQaGzaK7",
+    author = "Lyqyd",
+    program = "gps"
+  },
+  Oeed_Doorlock = {
+    source = "pastebin",
+    paste = "4QeAEiTM",
+    author = "Oeed",
+    program = "doorlock"
+  },
 }
