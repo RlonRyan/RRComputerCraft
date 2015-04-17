@@ -185,9 +185,6 @@ for selection in string.gmatch((io.read()), "[^%s]+") do
 	
 	selection = tonumber(selection)
 	
-	reset()
-	outputln("Installing " .. i .. " of " .. num)
-	
 	if programs[menu[selection]]["source"] == "paste" then
 		shell.run(path .. "/RRDownloader", "paste", programs[menu[selection]]["paste"], programs[menu[selection]]["program"])
 	elseif programs[menu[selection]]["source"] == "http" then
@@ -199,6 +196,14 @@ for selection in string.gmatch((io.read()), "[^%s]+") do
 	i = i + 1
 	
 end
+
+reset()
+outputln("Action(s) Completed.")
+br()
+bar()
+br()
+output("Press any key to continue.")
+io.read()
 
 term.clear()
 term.setCursorPos(1,1)
