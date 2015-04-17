@@ -13,23 +13,83 @@ x = 0    -- X-Coordinate on XY-plane centered on chest at position (0,0).
 y = 1    -- Y-Coordinate. The chest is at position (0,0) or behind the turtle when it is started.
 dir = 0  -- The directional heading of the turtle. Headings are in the set: {0,1,2,3} representing: {+y,+x,-y,-x} in a clockwise direction.
 
+function output(text, color)
+  color = color or colors.white
+  term.setTextColor(color)
+  write(text)
+  term.setTextColor(colors.white)
+end
+
+function outputln(text, color) -- Dirty Funtion.
+  color = color or colors.white
+  term.setTextColor(color)
+  print(text)
+  term.setTextColor(colors.white)
+end
+
+function bar()
+	outputln("================", colors.lightGray)
+end
+
+function br()
+	print()
+end
+
+function err(...)
+  -- TODO: Add Error formatter.
+  br()
+  bar()
+  for line in arg do
+    outputln(text, colors.red)
+  end
+  bar()
+  br()
+end
+
+function reset()
+    term.clear()
+    term.setCursorPos(1,1)
+    outputln("RR|Mine", colors.green)
+    bar()
+    br()
+end
+
 function init()
 
-	term.clear()
-	term.setCursorPos(1,1)
-	term.write("Enter Mode:")
+	reset()
+	ouput("Enter Mode:")
 	mode = io.read()
 	mode = tonumber(mode)
-	term.write("Enter Length:")
+	
+	reset()
+	output("Enter Length:")
 	length = io.read()
 	length = tonumber(length)
-	term.write("Enter Rows:")
+	
+	reset()
+	output("Enter Rows:")
 	rows = io.read()
 	rows = tonumber(rows)
-	term.write("Enter Torch Interval:")
+	
+	reset()
+	output("Enter Torch Interval:")
 	torch = io.read()
 	torch = tonumber(torch)
 
+end
+
+function pov(dist)
+	
+	if dir == 0 then
+		return {x, y + dist}
+	elseif dir == 1 then
+		return {x + dist, y}
+	elseif dir == 2 then
+		return {x, y - dist}
+	elseif dir == 3 then
+		return {x - dist, y}
+	end
+	
 end
 
 function fuel()
@@ -43,7 +103,7 @@ function fuel()
 			
 			if turtle.getFuelLevel() == 0 then
 			
-				term.write("Ran out of fuel! Refuel and press any key to continue!")
+				err("Ran out of fuel! Refuel and press any key to continue!")
 				io.read()
 			end
 			
@@ -136,8 +196,10 @@ function move()
 		end
 		
 		if (not turtle) then
-			print("X: " .. x .. " Z: " .. y)
+			output("X: " .. x .. " Y: " .. y)
 			io.read()
+		else
+			outputln("X: " .. x .. " Y: " .. y)
 		end
 		
 	end
@@ -161,7 +223,7 @@ end
 
 function row(l)
 
-	for i=0,l,1 do
+	for i=1,l,1 do
 		
 		fuel()
 		
@@ -189,11 +251,12 @@ function row(l)
 				turtle.select(2)
 				turtle.place()
 			else
-				print("torch")
+				tp = pov(1)
+				output("Torch at X: " .. tp[1] .. " Y: " .. tp[2], colors.yellow)
 			end
 			
-			turnBack()
-			turnBack()
+			turnback()
+			turnback()
 			
 		end
 		
@@ -204,41 +267,96 @@ function row(l)
 		end
 		
 	end
+	
 end
 
 function main()
 	
 	init()
 	
-	for i=0,rows,1 do
+	for i=1,rows,1 do
+		
+		reset()
+		
+		br()
+		outputln("Start Row: " .. i)
+		bar()
 		
 		row(length)
+		
+		bar()
+		outputln("End Row: " .. i)
+		
+		br()
+		outputln("Cutting Over")
+		bar()
+		
 		turn()
 		row(3)
 		turn()
+		
+		bar()
+		outputln("Cut Over")
+		
+		br()
+		outputln("Starting Row Back: " .. i)
+		bar()
+		
 		row(length)
+		
+		bar()
+		outputln("End Row Back: " .. i)
+		
 		turn()
-		row(2)
+		
+		br()
+		outputln("Begin homing.")
+		bar()
+		
 		pos = x
 		
-		while not x == 0 do
-			
-			move()
-			
-		end
-		
-		face(2)
-		depositinventory()
-		face(1)
-		
-		while not x == pos do
-			
-			move()
-			
-		end
-		
 		row(2)
+		
+		while (not (x == 0)) do
+			
+			move()
+			
+		end
+		
+		br()
+		outputln("Home.")
+		bar()
+		
+		turn()
+		depositinventory()
+		turn()
+		
+		if (i == rows) then
+			return
+		end
+		
+		br()
+		outputln("Returning to mine.")
+		bar()
+		
+		while (not (x == pos)) do
+			
+			move()
+			
+		end
+		
+		bar()
+		print("Back at mining location.")
+		
+		br()
+		print("Shifting Over.")
+		bar()
+		
+		row(3)
 		turnback()
+		
+		bar()
+		print("Shifted Over.")
 		
 	end
 
