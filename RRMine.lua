@@ -218,7 +218,7 @@ function depositinventory()
 		return
 	end
 	
-	for i=4,9,1 do
+	for i=4,16,1 do
 		
 		turtle.select(i)
 		turtle.drop()
