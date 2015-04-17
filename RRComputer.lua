@@ -147,6 +147,8 @@ reset()
 
 outputln("Updating installation agent.")
 br()
+bar()
+br()
 downloadHttp("https://raw.githubusercontent.com/RlonRyan/RRComputerCraft/master/RRDownloader.lua", path .. "/RRDownloader")
 
 reset()
@@ -179,13 +181,12 @@ bar()
 outputln("Select Programs: ")
 bar()
 
-selections = string.gmatch(io.read(), "[^%s]+")
-
-bar()
-
-for selection in selections do
+for selection in string.gmatch((io.read()), "[^%s]+") do
 	
 	selection = tonumber(selection)
+	
+	reset()
+	outputln("Installing " .. i .. " of " .. num)
 	
 	if programs[menu[selection]]["source"] == "paste" then
 		shell.run(path .. "/RRDownloader", "paste", programs[menu[selection]]["paste"], programs[menu[selection]]["program"])
@@ -194,6 +195,8 @@ for selection in selections do
 	elseif programs[menu[selection]]["source"] == "github" then
 		shell.run(path .. "/RRDownloader", "github", programs[menu[selection]]["author"], programs[menu[selection]]["repo"], programs[menu[selection]]["branch"], programs[menu[selection]]["file"], programs[menu[selection]]["program"])
 	end
+	
+	i = i + 1
 	
 end
 
