@@ -57,22 +57,22 @@ end
 function init()
 
 	reset()
-	ouput("Enter Mode:")
+	output("Enter Mode: ")
 	mode = io.read()
 	mode = tonumber(mode)
 	
 	reset()
-	output("Enter Length:")
+	output("Enter Length: ")
 	length = io.read()
 	length = tonumber(length)
 	
 	reset()
-	output("Enter Rows:")
+	output("Enter Rows: ")
 	rows = io.read()
 	rows = tonumber(rows)
 	
 	reset()
-	output("Enter Torch Interval:")
+	output("Enter Torch Interval: ")
 	torch = io.read()
 	torch = tonumber(torch)
 
@@ -252,7 +252,7 @@ function row(l)
 				turtle.place()
 			else
 				tp = pov(1)
-				output("Torch at X: " .. tp[1] .. " Y: " .. tp[2], colors.yellow)
+				outputln("Torch at X: " .. tp[1] .. " Y: " .. tp[2], colors.yellow)
 			end
 			
 			turnback()
@@ -277,8 +277,6 @@ function main()
 	for i=1,rows,1 do
 		
 		reset()
-		
-		br()
 		outputln("Start Row: " .. i)
 		bar()
 		
@@ -287,7 +285,7 @@ function main()
 		bar()
 		outputln("End Row: " .. i)
 		
-		br()
+		reset()
 		outputln("Cutting Over")
 		bar()
 		
@@ -298,7 +296,7 @@ function main()
 		bar()
 		outputln("Cut Over")
 		
-		br()
+		reset()
 		outputln("Starting Row Back: " .. i)
 		bar()
 		
@@ -309,7 +307,7 @@ function main()
 		
 		turn()
 		
-		br()
+		reset()
 		outputln("Begin homing.")
 		bar()
 		
@@ -323,9 +321,8 @@ function main()
 			
 		end
 		
-		br()
-		outputln("Home.")
 		bar()
+		outputln("Home.")
 		
 		turn()
 		depositinventory()
@@ -335,7 +332,7 @@ function main()
 			return
 		end
 		
-		br()
+		reset()
 		outputln("Returning to mine.")
 		bar()
 		
@@ -348,7 +345,7 @@ function main()
 		bar()
 		print("Back at mining location.")
 		
-		br()
+		reset()
 		print("Shifting Over.")
 		bar()
 		
