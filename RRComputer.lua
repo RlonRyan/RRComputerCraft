@@ -191,8 +191,8 @@ for selection in selections do
 		shell.run(path .. "/RRDownloader", "paste", programs[menu[selection]]["paste"], programs[menu[selection]]["program"])
 	elseif programs[menu[selection]]["source"] == "http" then
 		shell.run(path .. "/RRDownloader", "http", programs[menu[selection]]["address"], programs[menu[selection]]["program"])
-	elseif programs[menu[selection]]["source"] == "git" then
-		shell.run(path .. "/RRDownloader", "git", programs[menu[selection]]["author"], programs[menu[selection]]["repo"], programs[menu[selection]]["branch"], programs[menu[selection]]["file"], programs[menu[selection]]["program"])
+	elseif programs[menu[selection]]["source"] == "github" then
+		shell.run(path .. "/RRDownloader", "github", programs[menu[selection]]["author"], programs[menu[selection]]["repo"], programs[menu[selection]]["branch"], programs[menu[selection]]["file"], programs[menu[selection]]["program"])
 	end
 	
 end
