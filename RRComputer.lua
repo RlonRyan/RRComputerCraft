@@ -184,8 +184,17 @@ selections = string.gmatch(io.read(), "[^%s]+")
 bar()
 
 for selection in selections do
+	
 	selection = tonumber(selection)
-	shell.run(path .. "/RRDownloader" .. " http " .. "https://raw.githubusercontent.com/RlonRyan/RRComputerCraft/master/" .. programs[menu[selection]]["file"] .. " " .. programs[menu[selection]]["program"])
+	
+	if programs[menu[selection]]["source"] == "paste" then
+		shell.run(path .. "/RRDownloader", "paste", programs[menu[selection]]["paste"], programs[menu[selection]]["program"])
+	elseif programs[menu[selection]]["source"] == "http" then
+		shell.run(path .. "/RRDownloader", "http", programs[menu[selection]]["adress"], programs[menu[selection]]["program"])
+	elseif programs[menu[selection]]["source"] == "git" then
+		shell.run(path .. "/RRDownloader", "git", programs[menu[selection]]["author"], programs[menu[selection]]["repo"], programs[menu[selection]]["branch"], programs[menu[selection]]["file"], programs[menu[selection]]["program"])
+	end
+	
 end
 
 term.clear()
