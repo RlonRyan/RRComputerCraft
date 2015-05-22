@@ -151,6 +151,17 @@ function downloadHttp(address, filepath)
   end
 end
 
+function downloadGist(gist, name)
+	
+	output("Compiling Gist Address: ")
+  	address = "https://gist.github.com/raw/" .. gist
+  	outputln(address, colors.gray)
+  	bar()
+  	
+  	downloadHttp(address, name)
+  	
+end
+
 function downloadGit(user, repo, branch, file, name)
 	
 	output("Compiling GitHub Address: ")
@@ -195,6 +206,8 @@ bar()
 
 if((args[1] == "paste" or args[1] == "pastebin") and table.getn(args) == 3) then
 	downloadPaste(args[2], args[3])
+elseif((args[1] == "gist") and table.getn(args) == 3) then
+	downloadGist(args[2], args[3])
 elseif(args[1] == "http" and table.getn(args) == 3) then
 	downloadHttp(args[2], args[3])
 elseif((args[1] == "git" or args[1] == "github") and table.getn(args) >= 6) then
