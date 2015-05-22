@@ -49,10 +49,4 @@
     author = "Oeed",
     program = "doorlock"
   },
-  Mumberthrax_UnstableIngot = {
-    source = "gist",
-    gist = "8727255",
-    author = "Mumberthrax",
-    program = "unstable"
-  },
 }
