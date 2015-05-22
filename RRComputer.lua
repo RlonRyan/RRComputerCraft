@@ -188,6 +188,8 @@ for selection in string.gmatch((io.read()), "[^%s]+") do
 	src = string.lower(programs[menu[selection]]["source"])
 	if (src == "pastebin" or src == "paste") then
 		shell.run(path .. "/RRDownloader", "pastebin", programs[menu[selection]]["paste"], programs[menu[selection]]["program"])
+	elseif (src == "gist") then
+		shell.run(path .. "/RRDownloader", "gist", programs[menu[selection]]["gist"], programs[menu[selection]]["program"])
 	elseif (src == "http") then
 		shell.run(path .. "/RRDownloader", "http", programs[menu[selection]]["address"], programs[menu[selection]]["program"])
 	elseif (src == "github" or src == "git") then
