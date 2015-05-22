@@ -51,7 +51,7 @@
   },
   Mumberthrax_UnstableIngot = {
     source = "gist",
-    paste = "8727255",
+    gist = "8727255",
     author = "Mumberthrax",
     program = "unstable"
   },
