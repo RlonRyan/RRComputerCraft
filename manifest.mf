@@ -1,5 +1,5 @@
 {
-  RR_Reactor={
+  Reactor={
     source="github",
     repo="RRComputerCraft",
     branch="master",
@@ -7,13 +7,13 @@
     author="RlonRyan",
     program="reactor"
   },
-  RR_AutoReactor = {
+  AutoReactor = {
     source = "pastebin",
     paste = "N7ByezuW",
     author = "RlonRyan",
-    name = "startup"
+    program = "startup"
   },
-  RR_Mine={
+  Mine={
     source="github",
     repo="RRComputerCraft",
     branch="master",
@@ -21,7 +21,7 @@
     author="RlonRyan",
     program="mine"
   },
-  RR_WriteLine={
+  WriteLine={
     source="github",
     repo="RRComputerCraft",
     branch="master",
@@ -29,7 +29,7 @@
     author="RlonRyan",
     program="wl"
   },
-  Lyqyd_OS={
+  LyqydOS={
     source="github",
     repo="LyqydOS",
     branch="master",
@@ -37,19 +37,19 @@
     author="Lyqyd",
     program="OSInstaller"
   },
-  Lyqyd_GPS = {
+  GPS = {
     source = "pastebin",
     paste = "wQaGzaK7",
     author = "Lyqyd",
     program = "gps"
   },
-  Oeed_Doorlock = {
+  Doorlock = {
     source = "pastebin",
     paste = "4QeAEiTM",
     author = "Oeed",
     program = "doorlock"
   },
-  Tjakka5_Todo = {
+  TodoList = {
     source = "pastebin",
     paste = "ns8BpJqP",
     author = "Tjakka5",
