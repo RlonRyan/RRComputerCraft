@@ -1,5 +1,5 @@
 {
-  RRReactor={
+  RR_Reactor={
     source="github",
     repo="RRComputerCraft",
     branch="master",
@@ -13,7 +13,7 @@
     author = "RlonRyan",
     name = "startup"
   },
-  RRMine={
+  RR_Mine={
     source="github",
     repo="RRComputerCraft",
     branch="master",
@@ -21,7 +21,7 @@
     author="RlonRyan",
     program="mine"
   },
-  RRWriteLine={
+  RR_WriteLine={
     source="github",
     repo="RRComputerCraft",
     branch="master",
@@ -29,7 +29,7 @@
     author="RlonRyan",
     program="wl"
   },
-  LyqydOS={
+  Lyqyd_OS={
     source="github",
     repo="LyqydOS",
     branch="master",
