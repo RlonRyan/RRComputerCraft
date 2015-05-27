@@ -173,7 +173,9 @@ i = 1
 for k,v in pairs(programs) do
 	menu[i] = k
 	output(i .. ".) ", colors.yellow)
-	outputln(k .. " by " .. v["author"])
+	output(k, colors.lightBlue)
+	output(" by ", colors.lightGray)
+	outputln(v["author"], colors.cyan)
 	i = i + 1
 end
 br()
