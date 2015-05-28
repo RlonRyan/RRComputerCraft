@@ -53,6 +53,6 @@
     source = "pastebin",
     paste = "ns8BpJqP",
     author = "Tjakka5",
-    program = "todo"
+    program = "todoinstall"
   },
 }
