@@ -51,7 +51,7 @@
   },
   TodoList = {
     source = "pastebin",
-    paste = "ns8BpJqP",
+    paste = "vFaHf7pK",
     author = "Tjakka5",
     program = "todoinstall"
   },
